@@ -1,11 +1,13 @@
-import { Controller, Get,Param,Post,Put,Delete, Query, Body, NotFoundException, ParseIntPipe, ValidationPipe, UsePipes } from '@nestjs/common';
+import { Controller, Get,Param,Post,Put,Delete, Query, Body, NotFoundException, ParseIntPipe, ValidationPipe, UsePipes, UseGuards } from '@nestjs/common';
 import { CreateNinjaDto } from './dto/create-ninja.dto';
 import { UpdateNinjaDto } from './dto/update-ninja.dto';
 import { NinjasService } from './ninjas.service';
+import { BeltGuard } from 'src/belt/belt.guard';
 // import { ValidationPipe } from '@nestjs/common';
 
 @UsePipes(new ValidationPipe({transform: true})) 
 @Controller('ninjas')
+@UseGuards(BeltGuard)
 export class NinjasController {
 
     constructor(private readonly ninjasService: NinjasService){
